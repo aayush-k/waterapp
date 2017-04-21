@@ -55,6 +55,9 @@ class ReportsPage extends Component {
                         Add Report
                     </Button>
 
+                    <ScrollView>
+                        {this.renderReports()}
+                    </ScrollView>
             
                 <Button>
                         Log Out
