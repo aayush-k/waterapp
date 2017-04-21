@@ -1,4 +1,8 @@
-import React, {Component, View} from 'react';
+import React, {
+	Component, 
+	View,
+	Stylesheet
+} from 'react';
 import {Button, Card, CardSection, Input, Header, Spinner} from './common';
 import firebase from 'firebase';
 import {AlertIOS} from 'react-native';
@@ -103,5 +107,7 @@ class LoginScreen extends Component {
 		);
 	}
 }
+
+
 
 export default LoginScreen;

@@ -6,6 +6,9 @@ import {Header} from './components/common';
 import LoginScreen from './components/LoginScreen';
 import RegistrationPage from './components/RegistrationPage';
 import ReportsPage from './components/ReportsPage';
+import ReportsMapPage from './components/ReportsMapPage';
+import AddReportsPage from './components/AddReportsPage';
+import SettingsPage from './components/SettingsPage';
 
 import {
   createRouter,
@@ -16,7 +19,10 @@ import {
 export const Router = createRouter(() => ({
   loginScreen: () => LoginScreen,
   registrationPage: () => RegistrationPage,
-  reportsPage: () => ReportsPage
+  reportsPage: () => ReportsPage,
+  reportsMapPage: () => ReportsMapPage,
+  addReportsPage: () => AddReportsPage,
+  settingsPage: () => SettingsPage
 }));
 
 /**
@@ -59,50 +65,7 @@ class App extends Component {
 		
 		// firebase.database().ref('source_report').on('value', snap => this.setState({ reports: snap }));
 	}
-	
 
-	// getDataReports() {
-    //     firebase.database.ref('source_report').on('value', snap => this.setState({ reports: snap }));
-    // }
-	
-	/**
-	 * The router determines which page to be rendered.
-	 * loginScreen is rendered first because of the initial tag.
-	 * To add more screens, simply add it as a scene to this router.
-	 */
-	// render () {
-	// 	return (
-	// 		<Router>
-	// 			<Scene key="root">
-	// 				<Scene
-	// 					key="loginScreen"
-	// 					component={LoginScreen}
-	// 					initial
-	// 					hideNavBar
-	// 				/>
-	// 				<Scene
-	// 					key="registrationPage"
-	// 					component={RegistrationPage}
-	// 					title="Registration Page"
-	// 				/>
-	// 				<Scene
-	// 					key="reportsPage"
-	// 					component={ReportsPage}
-	// 					title="Reports Page"
-	// 					initial
-	// 					hideNavBar				
-	// 				/>
-
-	// 				<Scene
-	// 					key="reportsPage"
-	// 					component={ReportsPage}
-	// 					title="Reports Page"				
-	// 				/>
-
-	// 			</Scene>
-	// 		</Router>
-	// 	);
-	// }
 }
 
 export default App;

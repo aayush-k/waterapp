@@ -28,8 +28,13 @@ class ReportsPage extends Component {
 		
         // getDataReports();
         
-        axios.get('https://rallycoding.herokuapp.com/api/music_albums')
-		.then(response => this.setState({ reports: response.data })); //must update state with setState
+        // axios.get('https://rallycoding.herokuapp.com/api/music_albums')
+		// .then(response => this.setState({ reports: response.data })); //must update state with setState
+
+        firebase.database().ref('source_reports/').on('value', (snapshot) => {
+            const report = snapshot.val();
+            console.log(report);
+        });
 	}
     
     /**
@@ -47,11 +52,11 @@ class ReportsPage extends Component {
                         REPORTS
                     </Text>
 
-                    <Button>
+                    <Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
                         Report Map
                     </Button>
                     
-                    <Button>
+                    <Button onPress={() => this.props.navigator.push(Router.getRoute('addReportsPage'))}>
                         Add Report
                     </Button>
 
@@ -59,10 +64,10 @@ class ReportsPage extends Component {
                         {this.renderReports()}
                     </ScrollView>
             
-                <Button>
+                    <Button onPress={() => this.props.navigator.pop()}>
                         Log Out
                     </Button>
-                    <Button>
+                    <Button onPress={() => this.props.navigator.push(Router.getRoute('settingsPage'))}>
                         Settings
                     </Button>
             </View>
@@ -70,11 +75,10 @@ class ReportsPage extends Component {
 	}
 }
 
+
 export default ReportsPage;
 
 /*
-<ScrollView>
-                {this.renderReports()}
-            </ScrollView>
+
 
 */
