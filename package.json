@@ -11,7 +11,6 @@
     "expo": "16.0.0",
     "firebase": "^3.8.0",
     "react": "16.0.0-alpha.6",
-    "react-native": "https://github.com/exponent/react-native/archive/sdk-16.0.0.tar.gz",
-    "react-native-gifted-spinner": "^0.1.0"
+    "react-native": "https://github.com/exponent/react-native/archive/sdk-16.0.0.tar.gz"
   }
 }

@@ -51,27 +51,16 @@ class LoginScreen extends Component {
 		// Actions.reportsPage();
 		this.props.navigator.push(Router.getRoute('reportsPage'));
 	}
-
-	/**
-	 * This button determines if the button space should be a loading spinner or button.
-	 */
-	renderButton() {
-		if (this.state.loading) {
-			return (
-				<Spinner size={'small'} />
-			);
-		}
-		return (
-			<Button onPress={this.onButtonPress.bind(this)}>
-				Log in
-			</Button>
-		);
-	}
 	
 	/**
 	 * Main render function
 	 */
 	render() {
+		if (this.state.loading) {
+			return (
+				<Spinner size={'small'} />
+			);
+		}
 		return(
 			<Card>
 				<CardSection>
@@ -94,11 +83,11 @@ class LoginScreen extends Component {
 				</CardSection>
 
 				<CardSection>
-					{this.renderButton()}
-				</CardSection>
+					<Button onPress={this.onButtonPress.bind(this)}>
+						Log in
+					</Button>
 
-				<CardSection>
-					<Button onPress={() => this.props.navigator.push(Router.getRoute('registrationPage'))}>
+					<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
 						Register
 					</Button>
 				</CardSection>

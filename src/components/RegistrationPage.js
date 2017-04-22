@@ -35,24 +35,17 @@ class RegistrationPage extends Component {
 		this.props.navigator.push(Router.getRoute('reportsPage'));
 	}
 
-	renderButton() {
+	render() {
 		if (this.state.loading) {
 			return (
 				<Spinner size={'small'} />
 			);
 		}
-		return (
-			<Button onPress={this.onButtonPress.bind(this)}>
-				Register
-			</Button>
-		);
-	}
 
-	render() {
 		return(		
 			<Card>
 
-                <CardSection>
+				<CardSection>
 					<Input
 						placeholder='username'
 						label='Username'
@@ -80,7 +73,7 @@ class RegistrationPage extends Component {
 					/>
 				</CardSection>
 
-                <CardSection>
+				<CardSection>
 					<Input
 						secureTextEntry
 						placeholder='confirm password'
@@ -91,7 +84,12 @@ class RegistrationPage extends Component {
 				</CardSection>
 
 				<CardSection>
-					{this.renderButton()}
+					<Button onPress={this.onButtonPress.bind(this)}>
+						Register
+					</Button>
+					<Button onPress={() => this.props.navigator.pop()}>
+						Cancel
+					</Button>
 				</CardSection>
 
 			</Card>

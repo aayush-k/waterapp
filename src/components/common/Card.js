@@ -3,7 +3,7 @@ import {View} from 'react-native';
 
 
 //when an item is wrapped inside of a card component,
-//it'll be passed to the card component here as props.childred
+//it'll be passed to the card component here as props.children
 const Card = (props) => {
 
 	return (
