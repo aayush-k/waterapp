@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { 
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import {Button, Card, CardSection, Input, Header, Spinner} from './common';
 
 
 
-export default class ReportsMapPage extends React.Component {
+export default class ReportsMapPage extends Component {
   constructor() {
     super()
     this.state = {
@@ -53,7 +53,20 @@ export default class ReportsMapPage extends React.Component {
         coordinate={this.state.coordinate3} 
         onPress={() => this.props.navigator.pop()}
         />
+        <Card style={styles.blah}>
+          <CardSection>
+            <Button onPress={() => this.props.navigator.pop()}>
+              Back
+            </Button>
+          </CardSection>
+        </Card>
       </MapView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  blah: {
+    paddingTop: 200
+  }
+});

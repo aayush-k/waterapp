@@ -1,4 +1,4 @@
-import React, {Component, View} from 'react';
+import React, {Component} from 'react';
 import {Button, Card, CardSection, Input, Header, Spinner} from './common';
 import firebase from 'firebase';
 import {AlertIOS} from 'react-native';
@@ -6,7 +6,16 @@ import { Router } from '../App';
 
 class RegistrationPage extends Component {
 
-	state = { email: '', password: '', username: '', confirm_password: '', loading: false };
+	constructor() {
+		super();
+		this.state = {
+			email: '',
+			password: '',
+		 	username: '',
+		 	confirm_password: '',
+		 	loading: false
+		};
+	}
 
 	onButtonPress() {
 		const {email, password, username, confirm_password} = this.state;

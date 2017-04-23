@@ -1,16 +1,19 @@
-import React, {
-	Component, 
-	View,
-	Stylesheet
-} from 'react';
+import React, {Component} from 'react';
 import {Button, Card, CardSection, Input, Header, Spinner} from './common';
 import firebase from 'firebase';
-import {AlertIOS} from 'react-native';
+import {AlertIOS, Text, View} from 'react-native';
 import { Router } from '../App';
 
-class LoginScreen extends Component {
+export default class LoginScreen extends Component {
 
-	state = { email: '', password: '', loading: false }; //email, password, and loading states
+	constructor() {
+		super();
+		this.state = {
+			email: '',
+			password: '',
+			loading: false
+		}; //email, password, and loading states
+	}
 
 	/**
 	 * This method is triggered when the login button is pressed.
@@ -61,42 +64,63 @@ class LoginScreen extends Component {
 				<Spinner size={'small'} />
 			);
 		}
-		return(
-			<Card>
-				<CardSection>
-					<Input
-						placeholder='user@email.com'
-						label='Email'
-						value={this.state.email}
-						onChangeText={email => this.setState({ email })}
-					/>
-				</CardSection>
+		return (
+			<View>
+				<View style={styles.headerContentStyle}>
+          <Text style={styles.headerTextStyle}>Sign In</Text>
+				</View>
+				
+				<Card>
+					<CardSection>
+						<Input
+							placeholder='user@email.com'
+							label='Email'
+							value={this.state.email}
+							onChangeText={email => this.setState({ email })}
+						/>
+					</CardSection>
 
-				<CardSection>
-					<Input
-						secureTextEntry
-						placeholder='password'
-						label='Password'
-						value={this.state.password}
-						onChangeText={password => this.setState({ password })}
-					/>
-				</CardSection>
+					<CardSection>
+						<Input
+							secureTextEntry
+							placeholder='password'
+							label='Password'
+							value={this.state.password}
+							onChangeText={password => this.setState({ password })}
+						/>
+					</CardSection>
 
-				<CardSection>
-					<Button onPress={this.onButtonPress.bind(this)}>
-						Log in
-					</Button>
+					<CardSection>
+						<Button onPress={this.onButtonPress.bind(this)}>
+							Log in
+						</Button>
 
-					<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
-						Register
-					</Button>
-				</CardSection>
+						<Button onPress={() => this.props.navigator.push(Router.getRoute('registrationPage'))}>
+							Register
+						</Button>
+					</CardSection>
+					<CardSection>
+						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsPage'))}>
+							BYPASS
+						</Button>
+					</CardSection>
 
-			</Card>
+				</Card>
+			</View>
 		);
 	}
 }
 
-
-
-export default LoginScreen;
+const styles = {
+	headerContentStyle: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: 20,
+		backgroundColor: '#2980b9'
+	},
+	headerTextStyle: {
+		color: '#ffffff',
+		fontSize: 30
+	}
+}

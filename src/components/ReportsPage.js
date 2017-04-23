@@ -6,7 +6,7 @@ import axios from 'axios';
 import ReportsDetail from './common/ReportsDetail';
 import { Router } from '../App';
 
-class ReportsPage extends Component {
+export default class ReportsPage extends Component {
     
     state = { reports: [] };
 
@@ -47,38 +47,49 @@ class ReportsPage extends Component {
 
 	render() {
 		return(
-             <View>
-                    <Text>
-                        REPORTS
-                    </Text>
-
-                    <Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
-                        Report Map
-                    </Button>
-                    
-                    <Button onPress={() => this.props.navigator.push(Router.getRoute('addReportsPage'))}>
-                        Add Report
-                    </Button>
-
+            <View>
+                <View style={styles.headerContentStyle}>
+                    <Text style={styles.headerTextStyle}>Reports</Text>
+                </View>
+                <Card>
+                    <CardSection>
+                        <Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
+                            Report Map
+                        </Button>
+                    </CardSection>
+                    <CardSection>
+                        <Button onPress={() => this.props.navigator.push(Router.getRoute('addReportsPage'))}>
+                            Add Report
+                        </Button>
+                    </CardSection>
                     <ScrollView>
                         {this.renderReports()}
                     </ScrollView>
-            
-                    <Button onPress={() => this.props.navigator.pop()}>
-                        Log Out
-                    </Button>
-                    <Button onPress={() => this.props.navigator.push(Router.getRoute('settingsPage'))}>
-                        Settings
-                    </Button>
+                    <CardSection>
+                        <Button onPress={() => this.props.navigator.pop()}>
+                            Log Out
+                        </Button>
+                        <Button onPress={() => this.props.navigator.push(Router.getRoute('settingsPage'))}>
+                            Settings
+                        </Button>
+                    </CardSection>            
+                </Card>
             </View>
 		);
 	}
 }
 
+const styles = {
+  headerContentStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#2980b9'
+  },
+  headerTextStyle: {
+    color: '#ffffff',
+    fontSize: 34
+  }
+}
 
-export default ReportsPage;
-
-/*
-
-
-*/
