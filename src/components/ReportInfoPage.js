@@ -14,13 +14,39 @@ import {Button, Card, CardSection, Input, Header, Spinner} from './common';
 
 
 export default class ReportInfoPage extends Component {
+  constructor() {
+    super()
+    this.state = {
+      entry: undefined
+    }
+  }
+  
+  ComponentWillMount() {
+    marker = this.props.params.marker
+    this.setState({
+      entry: { marker }
+    });
+  }
+  
   render() {
+    entry = this.props.route.params.marker
     return (
-      <View style={styles.headerContentStyle}>
-        <Text style={styles.headerTextStyle}>
-          {this.props.route.params.title}
+      <View>
+        <View style={styles.headerContentStyle}>
+          <Text style={styles.headerTextStyle}>
+            {entry.title}
           </Text>
-				</View>
+        </View>
+
+        <Card>
+					<CardSection>
+            <View>
+              <Text>Latitude: {entry.latlng.latitude}</Text>
+              <Text>Longitude: {entry.latlng.longitude}</Text>
+            </View>
+					</CardSection>
+				</Card>
+      </View>
     );
   }
 }

@@ -67,7 +67,7 @@ export default class ReportsMapPage extends Component {
             <MapView.Callout style={styles.plainView}>
               <View style={styles.marker} >
                 <TouchableOpacity
-                  onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', {title: marker.title}))}>
+                  onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', {marker: marker}))}>
                   <View  style={styles.btnView}>
                     <Text style={styles.markerText}>{marker.title}</Text>
                   </View>

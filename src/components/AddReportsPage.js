@@ -1,8 +1,15 @@
-import Expo from 'expo';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, AlertIOS } from 'react-native';
-import {Button, Card, CardSection, Input, Header, Spinner} from './common';
+import {
+  StyleSheet,
+  Text,
+  View,
+  AlertIOS,
+  TouchableOpacity
+} from 'react-native';
+import { Button, Card, CardSection, Input, Header, Spinner } from './common';
+import DateInput from './common/DateInput'
 import firebase from 'firebase';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Router } from '../App';
 
 
@@ -14,9 +21,11 @@ export default class AddReportsPage extends Component {
 			longitude: '',
 		 	latitude: '',
 		 	date: '',
-		 	loading: false
+      loading: false,
+      datePickerVisible: false
 		};
 	}
+
   
   render() {
     if (this.state.loading) {
@@ -52,7 +61,6 @@ export default class AddReportsPage extends Component {
             />
           </CardSection>
           
-
           <CardSection>
             <Input
               placeholder='latitude'
@@ -63,14 +71,26 @@ export default class AddReportsPage extends Component {
           </CardSection>
         
           <CardSection>
-            <Input
-              placeholder='date'
-              label='Date'
-              value={this.state.date}
-              onChangeText={date => this.setState({ date })}
-            />
+            <View style={styles.containerStyle}>
+              <Text style={styles.labelStyle}>Date</Text>
+              <TouchableOpacity
+                onPress={this._showDateTimePicker}
+                style={styles.dateEntryStyle}
+              >
+                {this.renderDate()}
+              </TouchableOpacity>
+              <DateTimePicker
+                isVisible={this.state.datePickerVisible}
+                onConfirm={this._handleDatePicked}
+                onCancel={this._hideDateTimePicker}
+              />
+            </View>
           </CardSection>
 
+          <CardSection>
+            <DateInput
+            />
+          </CardSection>
 
           <CardSection>
             <Button onPress={() => this.props.navigator.pop()}>
@@ -85,6 +105,22 @@ export default class AddReportsPage extends Component {
       </View>
     );
   }
+
+  _showDateTimePicker = () => this.setState({ datePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ datePickerVisible: false });
+
+  _handleDatePicked = (d) => {
+    this.setState({ date: d.toString() })
+    this._hideDateTimePicker();
+  };
+  
+  renderDate() {
+    if (this.state.date == '') {
+      return (<Text style={styles.defaultValueStyle}>date</Text>);
+    }
+    return (<Text style={styles.valueStyle}>{this.state.date.toString()}</Text>);
+  }
 }
 
 const styles = {
@@ -98,5 +134,38 @@ const styles = {
   headerTextStyle: {
     color: '#ffffff',
     fontSize: 34
+  },
+  labelStyle: {
+		fontSize: 18,
+		paddingLeft: 20,
+		// flex: 2
+    paddingRight: 75
+  },
+  containerStyle: {
+		height: 40,
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center'
+  },
+  valueStyle: {
+		color: '#000',
+		paddingRight: 5,
+		paddingLeft: 5,
+		fontSize: 18,
+		lineHeight: 23,
+    // flex: 2,
+    // alignSelf: 'center'
+  },
+  defaultValueStyle: {
+    color: '#b3b3b3',
+		paddingRight: 5,
+		paddingLeft: 5,
+		fontSize: 21,
+		lineHeight: 23,
+  },
+  dateEntryStyle: {
+    flex: 1,
+    justifyContent: 'center'
+    // backgroundColor: '#2980b9'
   }
 }

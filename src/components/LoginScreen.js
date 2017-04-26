@@ -101,7 +101,13 @@ export default class LoginScreen extends Component {
 					</CardSection>
 					<CardSection>
 						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsPage'))}>
-							BYPASS
+							Report Page
+						</Button>
+						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
+							Map Page
+						</Button>
+						<Button onPress={() => this.props.navigator.push(Router.getRoute('addReportsPage'))}>
+							Add Report
 						</Button>
 					</CardSection>
 
