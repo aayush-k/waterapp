@@ -12,41 +12,38 @@ import {
 import { Button, Card, CardSection, Input, Header, Spinner } from './common';
 import { Router } from '../App';
 
-
+const dummyMarker = [
+  {
+    latlng: {
+      latitude: 37.78825,
+      longitude: -122.4324
+    },
+    title: 'Golden Gate',
+    date: 'Wed Apr 26 2017 11:25:20 GMT-0400 (EDT)',
+    key: 1
+  },
+  {
+    latlng: {
+      latitude: 37.774929,
+      longitude: -122.419416
+    },
+    title: 'SOMA Water',
+    date: 'Wed Apr 26 2017 11:25:20 GMT-0400 (EDT)',
+    key: 2
+  },
+  {
+    latlng: {
+      latitude: 37.803190,
+      longitude: -122.381832
+    },
+    title: 'Mission District',
+    date: 'Wed Apr 26 2017 11:25:20 GMT-0400 (EDT)',
+    key: 3
+  }
+];
 
 
 export default class ReportsMapPage extends Component {
-  constructor() {
-    super()
-    this.state = {
-      markers: [
-        {
-          latlng: {
-            latitude: 37.78825,
-            longitude: -122.4324
-          },
-          title: 'Golden Gate',
-          key: 1
-        },
-        {
-          latlng: {
-            latitude: 37.774929,
-            longitude: -122.419416
-          },
-          title: 'SOMA Water',
-          key: 2
-        },
-        {
-          latlng: {
-            latitude: 37.803190,
-            longitude: -122.381832
-          },
-          title: 'Mission District',
-          key: 3
-        }
-      ]
-    }
-  }
   render() {
     return (
       <MapView
@@ -58,7 +55,7 @@ export default class ReportsMapPage extends Component {
           longitudeDelta: 0.0421,
         }}
       >
-        {this.state.markers.map(marker => (
+        {dummyMarker.map(marker => (
           <MapView.Marker
             key={marker.key}  
             coordinate={marker.latlng}

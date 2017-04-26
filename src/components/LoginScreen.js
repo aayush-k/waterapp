@@ -66,9 +66,9 @@ export default class LoginScreen extends Component {
 		}
 		return (
 			<View>
-				<View style={styles.headerContentStyle}>
-          <Text style={styles.headerTextStyle}>Sign In</Text>
-				</View>
+				<Header
+          headerText='Kevin = bitch'
+        />
 				
 				<Card>
 					<CardSection>
@@ -114,19 +114,5 @@ export default class LoginScreen extends Component {
 				</Card>
 			</View>
 		);
-	}
-}
-
-const styles = {
-	headerContentStyle: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: 20,
-		backgroundColor: '#2980b9'
-	},
-	headerTextStyle: {
-		color: '#ffffff',
-		fontSize: 30
 	}
 }

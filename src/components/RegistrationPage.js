@@ -59,73 +59,78 @@ class RegistrationPage extends Component {
 		}
 
 		return(		
-			<Card>
+			<View>
+				<Header
+          headerText='Register'
+        />
+				
+				<Card>
+					<CardSection>
+						<Input
+							placeholder='username'
+							label='Username'
+							value={this.state.username}
+							onChangeText={username => this.setState({ username })}
+						/>
+					</CardSection>
 
-				<CardSection>
-					<Input
-						placeholder='username'
-						label='Username'
-						value={this.state.username}
-						onChangeText={username => this.setState({ username })}
-					/>
-				</CardSection>
+					<CardSection>
+						<Input
+							placeholder='user@gmail.com'
+							label='Email'
+							value={this.state.email}
+							onChangeText={email => this.setState({ email })}
+						/>
+					</CardSection>
 
-				<CardSection>
-					<Input
-						placeholder='user@gmail.com'
-						label='Email'
-						value={this.state.email}
-						onChangeText={email => this.setState({ email })}
-					/>
-				</CardSection>
+					<CardSection>
+						<Input
+							secureTextEntry
+							placeholder='password'
+							label='Password'
+							value={this.state.password}
+							onChangeText={password => this.setState({ password })}
+						/>
+					</CardSection>
 
-				<CardSection>
-					<Input
-						secureTextEntry
-						placeholder='password'
-						label='Password'
-						value={this.state.password}
-						onChangeText={password => this.setState({ password })}
-					/>
-				</CardSection>
+					<CardSection>
+						<Input
+							secureTextEntry
+							placeholder='confirm password'
+							label='Confirm'
+							value={this.state.confirm_password}
+							onChangeText={confirm_password => this.setState({ confirm_password })}
+						/>
+					</CardSection>
 
-				<CardSection>
-					<Input
-						secureTextEntry
-						placeholder='confirm password'
-						label='Confirm'
-						value={this.state.confirm_password}
-						onChangeText={confirm_password => this.setState({ confirm_password })}
-					/>
-				</CardSection>
-
-				<CardSection>
-					<View style={styles.pickerView}>
-						<Text style={styles.pickerTitle}>Authorization Level</Text>
-						<Picker
-							style={styles.picker}
-							mode='dropdown'
-							selectedValue={this.state.authLevel}
-							onValueChange={(level) => this.setState({authLevel: level})}>
-							<Picker.Item label="User" value="user" />
-							<Picker.Item label="Worker" value="worker" />
-							<Picker.Item label="Manager" value="manager" />
-							<Picker.Item label="Administrator" value="admin" />
-						</Picker>
-					</View>
-				</CardSection>
+					<CardSection>
+						<View style={styles.pickerView}>
+							<Text style={styles.pickerTitle}>Authorization Level</Text>
+							<Picker
+								style={styles.picker}
+								mode='dropdown'
+								selectedValue={this.state.authLevel}
+								onValueChange={(level) => this.setState({authLevel: level})}>
+								<Picker.Item label="User" value="user" />
+								<Picker.Item label="Worker" value="worker" />
+								<Picker.Item label="Manager" value="manager" />
+								<Picker.Item label="Administrator" value="admin" />
+							</Picker>
+						</View>
+					</CardSection>
 
 
-				<CardSection>
-					<Button onPress={this.onButtonPress.bind(this)}>
-						Register
-					</Button>
-					<Button onPress={() => this.props.navigator.pop()}>
-						Cancel
-					</Button>
-				</CardSection>
+					<CardSection>
+						<Button onPress={this.onButtonPress.bind(this)}>
+							Register
+						</Button>
+						<Button onPress={() => this.props.navigator.pop()}>
+							Cancel
+						</Button>
+					</CardSection>
 
-			</Card>
+				</Card>
+			</View>	
 		);
 	}
 }

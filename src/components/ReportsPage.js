@@ -48,10 +48,11 @@ export default class ReportsPage extends Component {
 	render() {
 		return(
             <View>
-                <View style={styles.headerContentStyle}>
-                    <Text style={styles.headerTextStyle}>Reports</Text>
-                </View>
-                <Card>
+                <Header
+                    headerText='Reports'
+                />
+                    
+				<Card>
                     <CardSection>
                         <Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
                             Report Map

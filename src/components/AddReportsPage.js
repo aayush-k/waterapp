@@ -36,9 +36,9 @@ export default class AddReportsPage extends Component {
     
     return (
       <View>
-        <View style={styles.headerContentStyle}>
-          <Text style={styles.headerTextStyle}>Add Report</Text>
-        </View>
+        <Header
+          headerText='Add Report'
+        />
         
         <Card>
 
@@ -124,17 +124,6 @@ export default class AddReportsPage extends Component {
 }
 
 const styles = {
-  headerContentStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#2980b9'
-  },
-  headerTextStyle: {
-    color: '#ffffff',
-    fontSize: 34
-  },
   labelStyle: {
 		fontSize: 18,
 		paddingLeft: 20,
