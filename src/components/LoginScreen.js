@@ -67,7 +67,7 @@ export default class LoginScreen extends Component {
 		return (
 			<View>
 				<Header
-          headerText='Kevin = bitch'
+          headerText='Sign In'
         />
 				
 				<Card>
