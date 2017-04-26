@@ -3,12 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import {
   MapView
 } from 'expo';
-import {Button, Card, CardSection, Input, Header, Spinner} from './common';
+import { Button, Card, CardSection, Input, Header, Spinner } from './common';
+import { Router } from '../App';
+
 
 
 
@@ -16,18 +19,32 @@ export default class ReportsMapPage extends Component {
   constructor() {
     super()
     this.state = {
-      coordinate1: {
-        latitude: 37.78825,
-        longitude: -122.4324
-      },
-      coordinate2: {
-        latitude: 37.774929,
-        longitude: -122.419416
-      },
-      coordinate3: {
-        latitude: 37.803190,
-        longitude: -122.381832
-      }
+      markers: [
+        {
+          latlng: {
+            latitude: 37.78825,
+            longitude: -122.4324
+          },
+          title: 'Golden Gate',
+          key: 1
+        },
+        {
+          latlng: {
+            latitude: 37.774929,
+            longitude: -122.419416
+          },
+          title: 'SOMA Water',
+          key: 2
+        },
+        {
+          latlng: {
+            latitude: 37.803190,
+            longitude: -122.381832
+          },
+          title: 'Mission District',
+          key: 3
+        }
+      ]
     }
   }
   render() {
@@ -41,19 +58,26 @@ export default class ReportsMapPage extends Component {
           longitudeDelta: 0.0421,
         }}
       >
-        <MapView.Marker 
-        coordinate={this.state.coordinate1} 
-        onPress={() => this.props.navigator.pop()}
-        />
-        <MapView.Marker 
-        coordinate={this.state.coordinate2} 
-        onPress={() => this.props.navigator.pop()}
-        />
-        <MapView.Marker 
-        coordinate={this.state.coordinate3} 
-        onPress={() => this.props.navigator.pop()}
-        />
-        <Card style={styles.blah}>
+        {this.state.markers.map(marker => (
+          <MapView.Marker
+            key={marker.key}  
+            coordinate={marker.latlng}
+            
+          >
+            <MapView.Callout style={styles.plainView}>
+              <View style={styles.marker} >
+                <TouchableOpacity
+                  onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', {title: marker.title}))}>
+                  <View  style={styles.btnView}>
+                    <Text style={styles.markerText}>{marker.title}</Text>
+                  </View>
+                </TouchableOpacity>
+                </View>
+              </MapView.Callout>  
+          </MapView.Marker>
+        ))}
+  
+        <Card style={styles.banner}>
           <CardSection>
             <Button onPress={() => this.props.navigator.pop()}>
               Back
@@ -66,7 +90,24 @@ export default class ReportsMapPage extends Component {
 }
 
 const styles = StyleSheet.create({
-  blah: {
+  banner: {
     paddingTop: 200
+  },
+  marker: {
+    // padding: 0,
+    // backgroundColor: '#2980b9'
+  },
+  markerView: {
+    // flex: 1,
+    // padding: 5,
+  },
+  markerText: {
+    color: '#2980b9',
+    fontSize: 18,
+    fontWeight: 'bold',
+
+  },
+  btnView: {
+    padding: 10
   }
 });

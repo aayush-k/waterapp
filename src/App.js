@@ -9,6 +9,7 @@ import ReportsPage from './components/ReportsPage';
 import ReportsMapPage from './components/ReportsMapPage';
 import AddReportsPage from './components/AddReportsPage';
 import SettingsPage from './components/SettingsPage';
+import ReportInfoPage from './components/ReportInfoPage';
 
 import {
   createRouter,
@@ -20,7 +21,8 @@ export const Router = createRouter(() => ({
   loginScreen: () => LoginScreen,
   registrationPage: () => RegistrationPage,
   reportsPage: () => ReportsPage,
-  reportsMapPage: () => ReportsMapPage,
+	reportsMapPage: () => ReportsMapPage,
+	reportInfoPage: () => ReportInfoPage,
   addReportsPage: () => AddReportsPage,
   settingsPage: () => SettingsPage
 }));
