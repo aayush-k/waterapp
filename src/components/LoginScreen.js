@@ -59,6 +59,15 @@ export default class LoginScreen extends Component {
 			password: loginPswd
 		}));
 	}
+
+	bypassLogin() {
+		console.log('bypassing login')
+		this.setState({
+			email: 'debug@gatech.edu',
+			password: 'abc123',
+		});
+		this.onLoginSuccess();
+	}
 	
 	/**
 	 * Main render function
@@ -105,7 +114,7 @@ export default class LoginScreen extends Component {
 						</Button>
 					</CardSection>
 					<CardSection>
-						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsPage'))}>
+						<Button onPress={() => this.bypassLogin()}>
 							Report Page
 						</Button>
 						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
