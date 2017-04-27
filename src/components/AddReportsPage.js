@@ -55,7 +55,7 @@ export default class AddReportsPage extends Component {
         />
         
         <Card>
-          <ScrollView>
+          <ScrollView style={styles.pagescroll}>
 
             <CardSection>
               <Input
@@ -134,16 +134,16 @@ export default class AddReportsPage extends Component {
                 </Picker>
               </View>
             </CardSection>
-
-            <CardSection>
-              <Button onPress={() => this.props.navigator.pop()}>
-                Save
-              </Button>
-              <Button onPress={() => this.props.navigator.pop()}>
-                Cancel
-              </Button>
-            </CardSection>
           </ScrollView>
+
+          <CardSection>
+            <Button onPress={() => this.props.navigator.pop()}>
+              Save
+            </Button>
+            <Button onPress={() => this.props.navigator.pop()}>
+              Cancel
+            </Button>
+          </CardSection>
 
         </Card>
       </View>
@@ -155,7 +155,7 @@ export default class AddReportsPage extends Component {
   _hideDateTimePicker = () => this.setState({ datePickerVisible: false });
 
   _handleDatePicked = (d) => {
-    this.setState({ date: d.toString() })
+    this.setState({ date: d })
     this._hideDateTimePicker();
   };
   
@@ -215,5 +215,8 @@ const styles = {
 		fontSize: 20,
 		alignItems: 'center',
 		alignSelf: 'center'
-	},
+  },
+  pagescroll: {
+    height: 500
+  }
 }
