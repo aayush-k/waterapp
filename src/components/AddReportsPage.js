@@ -134,7 +134,7 @@ export default class AddReportsPage extends Component {
                   style={styles.picker}
                   selectedValue={this.state.waterCondition}
                   onValueChange={(wc) => this.setState({waterCondition: wc})}>
-                  <Picker.Item label="Waste" value="WASTE" />
+                  <Picker.Item label="Waste" value='WASTE' />
                   <Picker.Item label="Treatable-Clear" value="TREATABLE_CLEAR" />
                   <Picker.Item label="Treatable-Muddy" value="TREATABLE_MUDDY" />
                   <Picker.Item label="Potable" value="POTABLE" />

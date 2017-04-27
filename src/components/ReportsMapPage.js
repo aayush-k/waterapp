@@ -65,6 +65,35 @@ export default class ReportsMapPage extends Component {
     }
   
     addReport() {
+      let reportPath = "source_report/";
+      let date = new Date();
+
+      firebase.database().ref(reportPath).push().set({
+            datetime: {
+              date: date.getDate(),
+              day: date.getDay(),
+              hours: date.getHours(),
+              minutes: date.getMinutes(),
+              month: date.getMonth(),
+              seconds: date.getSeconds(),
+              time: date.getTime(),
+              timezoneOffset: date.getTimezoneOffset(),
+              year: date.getYear()
+            },
+            location: {
+              latitude: this.state.myPosition.latitude,
+              longitude: this.state.myPosition.longitude
+            },
+            reportNumber: 0,
+            title: 'My Location',
+            waterCondition: 'WASTE',
+            waterType: 'BOTTLED'
+        }).then(() => {
+          console.log(firebase.database().ref(reportPath).push().key);
+        }).catch(() => {
+          console.log("error in pushing ref");
+          AlertIOS("Couldn't add report, check your internet.");
+        });
     
   }
 
@@ -107,12 +136,10 @@ export default class ReportsMapPage extends Component {
   
         <Card>
           <CardSection>
-            <Button onPress={() => this.props.navigator.pop()}
-              style={styles.buttonWrapper}>
+            <Button onPress={() => this.props.navigator.pop()}>
               Back
             </Button>
-            <Button onPress={() => this.addReport()}
-              style={styles.buttonWrapper}>
+            <Button onPress={() => this.addReport()}>
               Add Report
             </Button>
           </CardSection>
