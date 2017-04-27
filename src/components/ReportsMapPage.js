@@ -118,13 +118,17 @@ export default class ReportsMapPage extends Component {
           </MapView.Marker>
         ))}
   
-        <Card>
-          <CardSection>
-            <Button onPress={() => this.props.navigator.pop()}>
-              Back
-            </Button>
-          </CardSection>
-        </Card>
+        <View style={styles.backView}>
+          <View style={styles.buttonWrapper}>
+            <Card>
+              <CardSection>
+                <Button onPress={() => this.props.navigator.pop()}>
+                  Back
+                </Button>
+              </CardSection>
+            </Card>
+          </View>
+        </View>
       </MapView>
     );
   }
@@ -150,5 +154,14 @@ const styles = StyleSheet.create({
   },
   btnView: {
     padding: 10
+  },
+  backView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    margin: 5
+  },
+  buttonWrapper: {
+    width: 80
   }
 });

@@ -52,7 +52,6 @@ export default class ReportsPage extends Component {
             email: loginEmail,
             password: loginPswd,
             userUID: userID,
-            loading: false
         });
     }
     
