@@ -26,17 +26,26 @@ export default class AddReportsPage extends Component {
 		};
 	}
 
-  // static setUserMobile(userId, mobile) {
+  updateChanges() {
+		let reportPath = "source_report/";
 
-  //     let userMobilePath = "/user/" + userId + "/details";
+        firebase.database().ref(reportPath).push().set({
+          datetime: {
+            
+          }
+        });
+        
+        
+        // .set({
+        //     role: this.state.authLevel
+				// }).then(() => {
+				// 	console.log("User auth level is now:");
+				// 	console.log(this.state.authLevel);
+				// 	this.props.navigator.pop();
+				// });
+	}
 
-  //     return firebase.database().ref(userMobilePath).set({
-  //         mobile: mobile
-  //     })
 
-  // }
-
-  
   render() {
     if (this.state.loading) {
 			return (
