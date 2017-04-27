@@ -8,7 +8,7 @@ import {
   Picker,
   ScrollView
 } from 'react-native';
-import { Button, Card, CardSection, Input, Header, Spinner } from './common';
+import { Button, Card, CardSection, Input, Header, Spinner, InputConstricted } from './common';
 import DateInput from './common/DateInput'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Router } from '../App';
@@ -68,20 +68,22 @@ export default class AddReportsPage extends Component {
             
 
             <CardSection>
-              <Input
+              <InputConstricted
                 placeholder='longitude'
                 label='Longitude'
                 value={this.state.longitude}
                 onChangeText={longitude => this.setState({ longitude })}
+                keyboardType='decimal-pad'
               />
             </CardSection>
             
             <CardSection>
-              <Input
+              <InputConstricted
                 placeholder='latitude'
                 label='Latitude'
                 value={this.state.latitude}
                 onChangeText={latitude => this.setState({ latitude })}
+                keyboardType='decimal-pad'
               />
             </CardSection>
           
