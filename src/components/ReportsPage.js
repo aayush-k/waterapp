@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, CardSection, Header, Spinner} from './common';
+import {Button, Card, CardSection, Header, Spinner, InfoBlock} from './common';
 import firebase from 'firebase';
 import {Text, View, ScrollView} from 'react-native';
 import axios from 'axios';
@@ -43,6 +43,8 @@ export default class ReportsPage extends Component {
             snapshot.forEach((child) => {
               this.setState({reports: this.state.reports.concat(child)});
             })
+            this.setState({loading: false});
+
         });
 
         loginEmail = this.props.route.params.email
@@ -52,7 +54,6 @@ export default class ReportsPage extends Component {
             email: loginEmail,
             password: loginPswd
         });   
-        this.setState({loading: false});
     }
     
     /**
@@ -63,11 +64,9 @@ export default class ReportsPage extends Component {
 	}
 
 	render() {
-        if (this.state.loading || this.state.reports == []) {
+        if (this.state.loading) {
             return (
-                <Header
-                    headerText='LOADING'
-                />
+                <Spinner size={'large'} />
             );
         }
 		return(
@@ -87,9 +86,13 @@ export default class ReportsPage extends Component {
                             Add Report
                         </Button>
                     </CardSection>
-                    <ScrollView>
-                    {this.state.reports.map(marker => (
-                        <Text> {marker.val().title}</Text>        
+                    <ScrollView style={styles.reportsList}>
+                        {this.state.reports.map(marker => (
+                            <CardSection
+                                key={marker.key}
+                            >
+                                <Text style={styles.listText}>{marker.val().title}</Text>
+                        </CardSection>        
                     ))}      
                     </ScrollView>
                     <CardSection>
@@ -110,16 +113,15 @@ export default class ReportsPage extends Component {
 }
 
 const styles = {
-  headerContentStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#2980b9'
-  },
-  headerTextStyle: {
-    color: '#ffffff',
-    fontSize: 34
-  }
+  reportsList: {
+      height: 430,
+    },
+  listText: {
+    color: '#000',
+    paddingRight: 5,
+    paddingLeft: 5,
+    fontSize: 18,
+    lineHeight: 23,
+  }  
 }
 

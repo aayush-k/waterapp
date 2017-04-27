@@ -66,7 +66,7 @@ export default class LoginScreen extends Component {
 			email: 'debug@gatech.edu',
 			password: 'abc123',
 		});
-		this.onLoginSuccess();
+		this.onButtonPress();
 	}
 	
 	/**
@@ -115,7 +115,7 @@ export default class LoginScreen extends Component {
 					</CardSection>
 					<CardSection>
 						<Button onPress={() => this.bypassLogin()}>
-							Report Page
+							Bypass Login
 						</Button>
 						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
 							Map Page
