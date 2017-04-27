@@ -4,7 +4,9 @@ import {
   Text,
   View,
   AlertIOS,
-  TouchableOpacity
+  TouchableOpacity,
+  Picker,
+  ScrollView
 } from 'react-native';
 import { Button, Card, CardSection, Input, Header, Spinner } from './common';
 import DateInput from './common/DateInput'
@@ -20,7 +22,9 @@ export default class AddReportsPage extends Component {
 			title: '',
 			longitude: '',
 		 	latitude: '',
-		 	date: '',
+      date: '',
+      waterCondition: 'WASTE', 
+      waterType: 'BOTTLED',
       loading: false,
       datePickerVisible: false
 		};
@@ -60,65 +64,95 @@ export default class AddReportsPage extends Component {
         />
         
         <Card>
+          <ScrollView>
 
-          <CardSection>
-            <Input
-              placeholder='title'
-              label='Title'
-              value={this.state.title}
-              onChangeText={title => this.setState({ title })}
-            />
-          </CardSection>
-          
-
-          <CardSection>
-            <Input
-              placeholder='longitude'
-              label='Longitude'
-              value={this.state.longitude}
-              onChangeText={longitude => this.setState({ longitude })}
-            />
-          </CardSection>
-          
-          <CardSection>
-            <Input
-              placeholder='latitude'
-              label='Latitude'
-              value={this.state.latitude}
-              onChangeText={latitude => this.setState({ latitude })}
-            />
-          </CardSection>
-        
-          <CardSection>
-            <View style={styles.containerStyle}>
-              <Text style={styles.labelStyle}>Date</Text>
-              <TouchableOpacity
-                onPress={this._showDateTimePicker}
-                style={styles.dateEntryStyle}
-              >
-                {this.renderDate()}
-              </TouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.datePickerVisible}
-                onConfirm={this._handleDatePicked}
-                onCancel={this._hideDateTimePicker}
+            <CardSection>
+              <Input
+                placeholder='title'
+                label='Title'
+                value={this.state.title}
+                onChangeText={title => this.setState({ title })}
               />
-            </View>
-          </CardSection>
+            </CardSection>
+            
 
-          <CardSection>
-            <DateInput
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                placeholder='longitude'
+                label='Longitude'
+                value={this.state.longitude}
+                onChangeText={longitude => this.setState({ longitude })}
+              />
+            </CardSection>
+            
+            <CardSection>
+              <Input
+                placeholder='latitude'
+                label='Latitude'
+                value={this.state.latitude}
+                onChangeText={latitude => this.setState({ latitude })}
+              />
+            </CardSection>
+          
+            <CardSection>
+              <View style={styles.containerStyle}>
+                <Text style={styles.labelStyle}>Date</Text>
+                <TouchableOpacity
+                  onPress={this._showDateTimePicker}
+                  style={styles.dateEntryStyle}
+                >
+                  {this.renderDate()}
+                </TouchableOpacity>
+                <DateTimePicker
+                  isVisible={this.state.datePickerVisible}
+                  onConfirm={this._handleDatePicked}
+                  onCancel={this._hideDateTimePicker}
+                />
+              </View>
+            </CardSection>
 
-          <CardSection>
-            <Button onPress={() => this.props.navigator.pop()}>
-              Save
-            </Button>
-            <Button onPress={() => this.props.navigator.pop()}>
-              Cancel
-            </Button>
-          </CardSection>
+                      
+            <CardSection>
+              <View style={styles.pickerView}>
+                <Text style={styles.pickerTitle}>Water Condition</Text>
+                <Picker
+                  style={styles.picker}
+                  selectedValue={this.state.waterCondition}
+                  onValueChange={(wc) => this.setState({waterCondition: wc})}>
+                  <Picker.Item label="Waste" value="WASTE" />
+                  <Picker.Item label="Treatable-Clear" value="TREATABLE_CLEAR" />
+                  <Picker.Item label="Treatable-Muddy" value="TREATABLE_MUDDY" />
+                  <Picker.Item label="Potable" value="POTABLE" />
+                </Picker>
+              </View>
+            </CardSection>
+
+            <CardSection>
+              <View style={styles.pickerView}>
+                <Text style={styles.pickerTitle}>Water Type</Text>
+                <Picker
+                  style={styles.picker}
+                  selectedValue={this.state.waterType}
+                  onValueChange={(wt) => this.setState({waterType: wt})}>
+                  <Picker.Item label="Bottled" value="BOTTLED" />
+                  <Picker.Item label="Well" value="WELL" />
+                  <Picker.Item label="Stream" value="STREAM" />
+                  <Picker.Item label="Lake" value="LAKE" />
+                  <Picker.Item label="Spring" value="SPRING" />
+                  <Picker.Item label="Other" value="OTHER" />
+                </Picker>
+              </View>
+            </CardSection>
+
+            <CardSection>
+              <Button onPress={() => this.props.navigator.pop()}>
+                Save
+              </Button>
+              <Button onPress={() => this.props.navigator.pop()}>
+                Cancel
+              </Button>
+            </CardSection>
+          </ScrollView>
 
         </Card>
       </View>
@@ -175,5 +209,20 @@ const styles = {
     flex: 1,
     justifyContent: 'center'
     // backgroundColor: '#1463b8'
-  }
+  },
+  picker: {
+		width: 300,
+		alignSelf: 'center'
+	},
+	pickerView: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	pickerTitle: {
+		fontSize: 20,
+		alignItems: 'center',
+		alignSelf: 'center'
+	},
 }

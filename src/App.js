@@ -64,6 +64,7 @@ class App extends Component {
 	componentWillMount() {
 		//the following code lets the app directly take the user to the loginPage if he/she is already
 		// logged in.
+		console.disableYellowBox = true;
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {				
 				this.setState({ loggedIn: true });

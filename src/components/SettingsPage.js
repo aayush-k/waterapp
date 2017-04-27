@@ -44,6 +44,7 @@ export default class SettingsPage extends React.Component {
 					console.log("User auth level is now:");
 					console.log(this.state.authLevel);
 					this.props.navigator.pop();
+					
 				});
 	}
 
