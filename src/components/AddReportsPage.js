@@ -49,7 +49,7 @@ export default class AddReportsPage extends Component {
               latitude: this.state.latitude,
               longitude: this.state.longitude
             },
-            reportNumber: 0,
+            reportNumber: firebase.database().ref(reportPath).push().key,
             title: this.state.title,
             waterCondition: this.state.waterCondition,
             waterType: this.state.waterType
