@@ -34,10 +34,31 @@ export default class AddReportsPage extends Component {
 		let reportPath = "source_report/";
 
         firebase.database().ref(reportPath).push().set({
-          datetime: {
-            
-          }
+            datetime: {
+              date: this.state.date.getDate(),
+              day: this.state.date.getDay(),
+              hours: this.state.date.getHours(),
+              minutes: this.state.date.getMinutes(),
+              month: this.state.date.getMonth(),
+              seconds: this.state.date.getSeconds(),
+              time: this.state.date.getTime(),
+              timezoneOffset: this.state.date.getTimezoneOffset(),
+              year: this.state.date.getYear()
+            },
+            location: {
+              latitude: this.state.latitude,
+              longitude: this.state.longitude
+            },
+            reportNumber: 0,
+            title: this.state.title,
+            waterCondition: this.state.waterCondition,
+            waterType: this.state.waterType
+        }).then(() => {
+          console.log(firebase.database().ref(reportPath).push().key);
+        }).catch(() => {
+          console.log("error in pushing ref");
         });
+        
         
         
         // .set({
