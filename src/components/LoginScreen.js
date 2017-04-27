@@ -46,13 +46,18 @@ export default class LoginScreen extends Component {
 	 * It clears the login fields and takes the user to the reports page.
 	 */
 	onLoginSuccess() {
+		loginEmail = this.state.email
+		loginPswd = this.state.password
 		this.setState({
 			email: '',
 			password: '',
 			loading: false
 		 });
 		// Actions.reportsPage();
-		this.props.navigator.push(Router.getRoute('reportsPage'));
+		this.props.navigator.push(Router.getRoute('reportsPage', {
+			email: loginEmail,
+			password: loginPswd
+		}));
 	}
 	
 	/**

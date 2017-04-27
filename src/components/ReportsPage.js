@@ -8,7 +8,14 @@ import { Router } from '../App';
 
 export default class ReportsPage extends Component {
     
-    state = { reports: [] };
+    constructor() {
+		super();
+		this.state = {
+			email: '',
+			password: '',
+			loading: false
+		}; //email, password, and loading states
+	}
 
     /**
      * Retrieve data to display source reports
@@ -35,14 +42,22 @@ export default class ReportsPage extends Component {
             const report = snapshot.val();
             console.log(report);
         });
-	}
+
+        loginEmail = this.props.route.params.email
+        loginPswd = this.props.route.params.password
+
+        this.setState({
+            email: loginEmail,
+            password: loginPswd
+        });   
+    } 
+
     
     /**
      * Renders reports and returns JSX of it.
      */
     renderReports() {
-		return this.state.reports.map(report => 
-		<ReportsDetail key={report.title} report={report} />); //creates an array
+        return (<Text>render reports function</Text>);
 	}
 
 	render() {
@@ -70,7 +85,10 @@ export default class ReportsPage extends Component {
                         <Button onPress={() => this.props.navigator.pop()}>
                             Log Out
                         </Button>
-                        <Button onPress={() => this.props.navigator.push(Router.getRoute('settingsPage'))}>
+                        <Button onPress={() => this.props.navigator.push(Router.getRoute('settingsPage', {
+                            email: this.state.email,
+                			password: this.state.password
+                        }))}>
                             Settings
                         </Button>
                     </CardSection>            

@@ -74,7 +74,7 @@ export default class ReportsMapPage extends Component {
           </MapView.Marker>
         ))}
   
-        <Card style={styles.banner}>
+        <Card>
           <CardSection>
             <Button onPress={() => this.props.navigator.pop()}>
               Back
@@ -87,9 +87,9 @@ export default class ReportsMapPage extends Component {
 }
 
 const styles = StyleSheet.create({
-  banner: {
-    paddingTop: 200
-  },
+  // banner: {
+  //   paddingTop: 200
+  // },
   marker: {
     // padding: 0,
     // backgroundColor: '#2980b9'

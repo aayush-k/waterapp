@@ -10,14 +10,13 @@ import {
 } from 'react-native';
 import { Router } from '../App';
 
-class RegistrationPage extends Component {
+export default class RegistrationPage extends Component {
 
 	constructor() {
 		super();
 		this.state = {
 			email: '',
 			password: '',
-		 	username: '',
 		 	confirm_password: '',
 			loading: false,
 			authLevel: 'user'
@@ -43,12 +42,17 @@ class RegistrationPage extends Component {
 	}
 
 	onUserCreateSuccess() {
+		loginEmail = this.state.email
+		loginPswd = this.state.password
 		this.setState({
 			email: '',
 			password: '',
 			loading: false
 		 });
-		this.props.navigator.push(Router.getRoute('reportsPage'));
+		this.props.navigator.push(Router.getRoute('reportsPage', {
+			email: loginEmail,
+			password: loginPswd
+		}));
 	}
 
 	render() {
@@ -65,14 +69,6 @@ class RegistrationPage extends Component {
         />
 				
 				<Card>
-					<CardSection>
-						<Input
-							placeholder='username'
-							label='Username'
-							value={this.state.username}
-							onChangeText={username => this.setState({ username })}
-						/>
-					</CardSection>
 
 					<CardSection>
 						<Input
@@ -153,4 +149,3 @@ var styles = StyleSheet.create({
 	}
 });
 
-export default RegistrationPage;

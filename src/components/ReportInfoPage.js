@@ -22,8 +22,8 @@ export default class ReportInfoPage extends Component {
     }
   }
   
-  ComponentWillMount() {
-    marker = this.props.params.marker
+  componentWillMount() {
+    marker = this.props.route.params.marker
     this.setState({
       entry: { marker }
     });
