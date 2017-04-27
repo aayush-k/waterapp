@@ -97,8 +97,7 @@ export default class ReportsMapPage extends Component {
     
   }
 
-     
-
+    
   render() {
     if (this.state.loading || this.state.reports == []) {
 			return (

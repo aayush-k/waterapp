@@ -8,7 +8,7 @@ import {
   Picker,
   ScrollView
 } from 'react-native';
-import { Button, Card, CardSection, Input, Header, Spinner, InputConstricted } from './common';
+import { Button, Card, CardSection, Input, Header, Spinner } from './common';
 import DateInput from './common/DateInput'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Router } from '../App';
@@ -31,7 +31,9 @@ export default class AddReportsPage extends Component {
 	}
 
   updateChanges() {
-		let reportPath = "source_report/";
+    let reportPath = "source_report/";
+    longitudeFloat = parseFloat(this.state.longitude)
+    latitudeFloat = parseFloat(this.state.latitude)
 
         firebase.database().ref(reportPath).push().set({
             datetime: {
@@ -46,8 +48,8 @@ export default class AddReportsPage extends Component {
               year: this.state.date.getYear()
             },
             location: {
-              latitude: this.state.latitude,
-              longitude: this.state.longitude
+              latitude: latitudeFloat,
+              longitude: longitudeFloat
             },
             reportNumber: firebase.database().ref(reportPath).push().key,
             title: this.state.title,
@@ -89,22 +91,20 @@ export default class AddReportsPage extends Component {
             </CardSection>
             
             <CardSection>
-              <InputConstricted
+              <Input
                 placeholder='latitude'
                 label='Latitude'
                 value={this.state.latitude}
                 onChangeText={latitude => this.setState({ latitude })}
-                keyboardType='number-pad'
               />
             </CardSection>
 
             <CardSection>
-              <InputConstricted
+              <Input
                 placeholder='longitude'
                 label='Longitude'
                 value={this.state.longitude}
                 onChangeText={longitude => this.setState({ longitude })}
-                keyboardType='number-pad'
               />
             </CardSection>
             
