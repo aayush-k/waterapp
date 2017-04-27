@@ -15,36 +15,7 @@ import firebase from 'firebase';
 
 
 //Replace with firebase data
-const dummyMarker = [
-  {
-    latlng: {
-      latitude: 37.78825,
-      longitude: -122.4324
-    },
-    title: 'Golden Gate',
-    date: 'Wed Apr 26 2017 11:25:20 GMT-0400 (EDT)',
-    key: 1
-  },
-  {
-    latlng: {
-      latitude: 37.774929,
-      longitude: -122.419416
-    },
-    title: 'SOMA Water',
-    date: 'Wed Apr 26 2017 11:25:20 GMT-0400 (EDT)',
-    key: 2
-  },
-  {
-    latlng: {
-      latitude: 37.803190,
-      longitude: -122.381832
-    },
-    title: 'Mission District',
-    date: 'Wed Apr 26 2017 11:25:20 GMT-0400 (EDT)',
-    key: 3
-  }
-];
-
+var isEqual = require('lodash.isequal');
 
 export default class ReportsMapPage extends Component {
 
@@ -52,7 +23,8 @@ export default class ReportsMapPage extends Component {
         super(props);
         this.state = {
             reports: [],
-            loading: true
+            loading: true,
+            myPosition: null
         };
     }
 
@@ -65,21 +37,65 @@ export default class ReportsMapPage extends Component {
         });
 
     }
+    componentDidMount() {
+      this.mounted = true;
+      this.watchLocation()
+    }
+
+  watchLocation() {
+    // eslint-disable-next-line no-undef
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      const myLastPosition = this.state.myPosition;
+      const myPosition = position.coords;
+      if (!isEqual(myPosition, myLastPosition)) {
+        this.setState({ myPosition });
+      }
+    }, null, this.props.geolocationOptions);
+  }
+
+   componentWillUnmount() {
+    this.mounted = false;
+    // eslint-disable-next-line no-undef
+    if (this.watchID) navigator.geolocation.clearWatch(this.watchID);
+  }
     
 
     componentWillMount() {
-      // console.log("ENTERED GET DATA REPORTS\n\n\n\n\n\n\n");
-      this.getDataReports();
-      // console.log(this.state.reports);
-    //   console.log(dataReports);
-
-    //   this.setState( {
-    //     reports: dataReports 
-    //   });
-
-    //  this.setState({loading: false});
-      
+      this.getDataReports();      
     }
+  
+    addReport() {
+      let reportPath = "source_report/";
+      let date = new Date();
+
+      firebase.database().ref(reportPath).push().set({
+            datetime: {
+              date: date.getDate(),
+              day: date.getDay(),
+              hours: date.getHours(),
+              minutes: date.getMinutes(),
+              month: date.getMonth(),
+              seconds: date.getSeconds(),
+              time: date.getTime(),
+              timezoneOffset: date.getTimezoneOffset(),
+              year: date.getYear()
+            },
+            location: {
+              latitude: this.state.myPosition.latitude,
+              longitude: this.state.myPosition.longitude
+            },
+            reportNumber: 0,
+            title: 'My Location',
+            waterCondition: 'WASTE',
+            waterType: 'BOTTLED'
+        }).then(() => {
+          console.log(firebase.database().ref(reportPath).push().key);
+        }).catch(() => {
+          console.log("error in pushing ref");
+          AlertIOS("Couldn't add report, check your internet.");
+        });
+    
+  }
 
      
 
@@ -118,17 +134,17 @@ export default class ReportsMapPage extends Component {
           </MapView.Marker>
         ))}
   
-        <View style={styles.backView}>
-          <View style={styles.buttonWrapper}>
-            <Card>
-              <CardSection>
-                <Button onPress={() => this.props.navigator.pop()}>
-                  Back
-                </Button>
-              </CardSection>
-            </Card>
-          </View>
-        </View>
+        <Card>
+          <CardSection>
+            <Button onPress={() => this.props.navigator.pop()}>
+              Back
+            </Button>
+            <Button onPress={() => this.addReport()}>
+              Add Report
+            </Button>
+          </CardSection>
+        </Card>
+         
       </MapView>
     );
   }
@@ -163,5 +179,8 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     width: 80
+  },
+  backBtn: {
+    width: 75
   }
 });
