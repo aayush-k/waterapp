@@ -22,11 +22,9 @@ export default class ReportInfoPage extends Component {
     }
   }
   
-  ComponentWillMount() {
-    marker = this.props.route.params.marker
-    console.log('====================================\n\n\n\n')
 
-    console.log(marker.location)
+  componentWillMount() {
+    marker = this.props.route.params.marker
     this.setState({
       entry: { marker }
     });
