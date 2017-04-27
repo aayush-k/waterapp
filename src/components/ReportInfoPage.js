@@ -71,12 +71,16 @@ export default class ReportInfoPage extends Component {
             value={entry.datetime.day}
           />
           <InfoBlock
-            label={'Water Type'}
-            value={'blah'}
+            label={'Water Condition'}
+            value={entry.waterCondition}
           />
           <InfoBlock
-            label={'Water Condition'}
-            value={'bad'}
+            label={'Virus PPM'}
+            value={entry.virusPPM}
+          />
+          <InfoBlock
+            label={'Contaminant PPM'}
+            value={entry.contaminantPPM}
           />
           
         </View>

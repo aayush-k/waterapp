@@ -12,8 +12,9 @@ export default class ReportsPage extends Component {
 		super();
 		this.state = {
 			email: '',
-			password: '',
-			loading: false
+            password: '',
+            reports: [],
+			loading: true
 		}; //email, password, and loading states
 	}
 
@@ -38,9 +39,10 @@ export default class ReportsPage extends Component {
         // axios.get('https://rallycoding.herokuapp.com/api/music_albums')
 		// .then(response => this.setState({ reports: response.data })); //must update state with setState
 
-        firebase.database().ref('source_reports/').on('value', (snapshot) => {
-            const report = snapshot.val();
-            console.log(report);
+        firebase.database().ref('source_report').on('value', (snapshot) => {
+            snapshot.forEach((child) => {
+              this.setState({reports: this.state.reports.concat(child)});
+            })
         });
 
         loginEmail = this.props.route.params.email
@@ -50,8 +52,8 @@ export default class ReportsPage extends Component {
             email: loginEmail,
             password: loginPswd
         });   
-    } 
-
+        this.setState({loading: false});
+    }
     
     /**
      * Renders reports and returns JSX of it.
@@ -61,6 +63,13 @@ export default class ReportsPage extends Component {
 	}
 
 	render() {
+        if (this.state.loading || this.state.reports == []) {
+            return (
+                <Header
+                    headerText='LOADING'
+                />
+            );
+        }
 		return(
             <View>
                 <Header
@@ -79,7 +88,9 @@ export default class ReportsPage extends Component {
                         </Button>
                     </CardSection>
                     <ScrollView>
-                        {this.renderReports()}
+                    {this.state.reports.map(marker => (
+                        <Text> {marker.val().title}</Text>        
+                    ))}      
                     </ScrollView>
                     <CardSection>
                         <Button onPress={() => this.props.navigator.pop()}>

@@ -57,13 +57,10 @@ export default class ReportsMapPage extends Component {
     }
 
     getDataReports() {
-      //  console.log("ENTERED GET DATA REPORTS\n\n\n\n\n\n\n");
         firebase.database().ref('source_report').on('value', (snapshot) => {
             snapshot.forEach((child) => {
               this.setState({reports: this.state.reports.concat(child)});
             })
-            // this.setState({reports: snapshot.val()});
-            // console.log(this.state.reports);      
             this.setState({loading: false});
         });
 
