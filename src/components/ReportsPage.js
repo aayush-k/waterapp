@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Card, CardSection, Header, Spinner, InfoBlock} from './common';
 import firebase from 'firebase';
-import {Text, View, ScrollView} from 'react-native';
+import {
+    Text,
+    View,
+    ScrollView,
+    TouchableOpacity
+} from 'react-native';
 import axios from 'axios';
 import ReportsDetail from './common/ReportsDetail';
 import { Router } from '../App';
@@ -88,11 +93,17 @@ export default class ReportsPage extends Component {
                     </CardSection>
                     <ScrollView style={styles.reportsList}>
                         {this.state.reports.map(marker => (
-                            <CardSection
+                            <TouchableOpacity
                                 key={marker.key}
+                                onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', { marker: marker.val() }))}
                             >
-                                <Text style={styles.listText}>{marker.val().title}</Text>
-                        </CardSection>        
+                                <CardSection>
+                                    <View style={styles.listItem}>
+                                        <Text style={styles.listMainText}>{marker.val().title}</Text>
+                                        <Text style={styles.listSubText}> See More </Text>
+                                    </View>
+                                </CardSection>
+                            </TouchableOpacity>    
                     ))}      
                     </ScrollView>
                     <CardSection>
@@ -116,12 +127,23 @@ const styles = {
   reportsList: {
       height: 430,
     },
-  listText: {
-    color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
+  listMainText: {
+    color: '#1463b8',
     fontSize: 18,
+    fontWeight: 'bold',
+    padding: 5,
     lineHeight: 23,
-  }  
+  },
+  listSubText: {
+      color: '#a7a7a7',
+      fontSize: 18,
+      padding: 5,
+      lineHeight: 23
+  },
+  listItem: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+  }
 }
 

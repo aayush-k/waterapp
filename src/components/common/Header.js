@@ -24,7 +24,7 @@ const Header = (props) => {
 //Now we make styling objects
 const styles = {
 	viewStyle: {
-		backgroundColor: "#2980b9", //most jsx props are the same as css, check documentation
+		backgroundColor: "#1463b8", //most jsx props are the same as css, check documentation
 		justifyContent: "center", //justify content moves it up and down
 		alignItems: "center", //this moves content in the view left or right
 		
