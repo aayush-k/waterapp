@@ -71,7 +71,14 @@ export default class ReportsPage extends Component {
 	render() {
         if (this.state.loading) {
             return (
-                <Spinner size={'large'} />
+                <View>
+                    <Header
+                        headerText='Reports'
+                    />
+                    <View style={styles.spinner}>
+                        <Spinner size={'large'} />
+                    </View>
+                </View>
             );
         }
 		return(
@@ -144,6 +151,9 @@ const styles = {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between'
+  },
+  spinner: {
+      paddingTop: 200
   }
 }
 
