@@ -9,7 +9,7 @@ import {
 import {
   MapView
 } from 'expo';
-import { Button, Header, Spinner, Card, CardSection } from './common';
+import { Button, Header, Spinner, Card, CardSection, InfoBlock } from './common';
 // import InfoBlock from './common/InfoBlock'
 
 
@@ -57,11 +57,27 @@ export default class ReportInfoPage extends Component {
 
         <View style={styles.infoStyle}>
           
-          <Text style={styles.infoTextStyle}>Latitude: {entry.latlng.latitude}</Text>
-          <Text style={styles.infoTextStyle}>Longitude: {entry.latlng.longitude}</Text>
-          <Text style={styles.infoTextStyle}>Date: {entry.date}</Text>
-          <Text style={styles.infoTextStyle}>Water Type: {entry.latlng.latitude}</Text>
-          <Text style={styles.infoTextStyle}>Water Condition: {entry.latlng.longitude}</Text>
+          <InfoBlock
+            label={'Latitude'}
+            value={entry.latlng.latitude}
+          />
+          <InfoBlock
+            label={'Longitude'}
+            value={entry.latlng.longitude}
+          />
+          <InfoBlock
+            label={'Date'}
+            value={entry.date}
+          />
+          <InfoBlock
+            label={'Water Type'}
+            value={'blah'}
+          />
+          <InfoBlock
+            label={'Water Condition'}
+            value={'bad'}
+          />
+          
         </View>
         
         <Card>

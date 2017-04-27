@@ -4,19 +4,13 @@ import {View, Text} from 'react-native';
 
 //when an item is wrapped inside of a card component,
 //it'll be passed to the card component here as props.children
-const InfoBlock = ({ label, value }) => {
+const Subheading = ({ title }) => {
   
 	return (
 		<View style={styles.containerStyle}>
-
-      <Text style={styles.labelStyle}>
-				{label}
+      <Text style={styles.titleStyle}>
+				{title}
       </Text>
-      
-      <Text style={styles.valueStyle}>
-				{value}
-			</Text>
-
 		</View>
 	);
 
@@ -35,7 +29,7 @@ const styles = {
     flex: 1,
     color: '#2980b9'
   },
-  valueStyle: {
+  titleStyle: {
     fontSize: 18,
 		paddingLeft: 20,
     flex: 1,
@@ -43,4 +37,4 @@ const styles = {
   }
 };
 
-export {InfoBlock};
+export {Subheading};
