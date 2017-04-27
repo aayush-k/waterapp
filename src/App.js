@@ -44,9 +44,7 @@ class App extends Component {
 			messagingSenderId: "547594433734"
 		});
 		this.state = {
-				dataSource: new ListView.DataSource({
-				rowHasChanged: (row1, row2) => row1 !== row2,
-				}),
+				userUID: '',
 				loggedIn: false
 		};
 	}
@@ -67,9 +65,9 @@ class App extends Component {
 		//the following code lets the app directly take the user to the loginPage if he/she is already
 		// logged in.
 		firebase.auth().onAuthStateChanged((user) => {
-			if (user) {
+			if (user) {				
 				this.setState({ loggedIn: true });
-			} else {
+			} else {				
 				this.setState({ loggedIn: false });
 			}
 		});

@@ -19,19 +19,10 @@ export default class ReportsPage extends Component {
 			email: '',
             password: '',
             reports: [],
-			loading: true
+			loading: true,
+            userUID: ''
 		}; //email, password, and loading states
 	}
-
-    /**
-     * Retrieve data to display source reports
-     */
-    getDataReports() {
-        firebase.database().ref('source_reports/').on('value', (snapshot) => {
-            const report = snapshot.val();
-            console.log(report);
-        });
-    }
 
     componentWillMount() { //This method will automatically be rendered as soon as class is ready
 		//debugger; //can be used to help debug
@@ -44,6 +35,7 @@ export default class ReportsPage extends Component {
         // axios.get('https://rallycoding.herokuapp.com/api/music_albums')
 		// .then(response => this.setState({ reports: response.data })); //must update state with setState
 
+        //gets data reports
         firebase.database().ref('source_report').on('value', (snapshot) => {
             snapshot.forEach((child) => {
               this.setState({reports: this.state.reports.concat(child)});
@@ -52,13 +44,16 @@ export default class ReportsPage extends Component {
 
         });
 
-        loginEmail = this.props.route.params.email
-        loginPswd = this.props.route.params.password
+        loginEmail = this.props.route.params.email;
+        loginPswd = this.props.route.params.password;
+        userID = this.props.route.params.userUID;
 
         this.setState({
             email: loginEmail,
-            password: loginPswd
-        });   
+            password: loginPswd,
+            userUID: userID,
+            loading: false
+        });
     }
     
     /**
@@ -119,7 +114,8 @@ export default class ReportsPage extends Component {
                         </Button>
                         <Button onPress={() => this.props.navigator.push(Router.getRoute('settingsPage', {
                             email: this.state.email,
-                			password: this.state.password
+                			password: this.state.password,
+                            userUID: this.state.userUID
                         }))}>
                             Settings
                         </Button>
