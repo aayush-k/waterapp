@@ -23,7 +23,10 @@ export default class ReportInfoPage extends Component {
   }
   
   ComponentWillMount() {
-    marker = this.props.params.marker
+    marker = this.props.route.params.marker
+    console.log('====================================\n\n\n\n')
+
+    console.log(marker.location)
     this.setState({
       entry: { marker }
     });
@@ -39,8 +42,8 @@ export default class ReportInfoPage extends Component {
         <MapView
           style={styles.singleReportMap}
           initialRegion={{
-            latitude: entry.latlng.latitude,
-            longitude: entry.latlng.longitude,
+            latitude: entry.location.latitude,
+            longitude: entry.location.longitude,
             latitudeDelta: 0.0421,
             longitudeDelta: 0.0421,
           }}
@@ -50,7 +53,7 @@ export default class ReportInfoPage extends Component {
           />
           <MapView.Marker
             key={entry.key}  
-            coordinate={entry.latlng} 
+            coordinate={entry.location} 
           />
           
         </ MapView>  
@@ -59,15 +62,15 @@ export default class ReportInfoPage extends Component {
           
           <InfoBlock
             label={'Latitude'}
-            value={entry.latlng.latitude}
+            value={entry.location.latitude}
           />
           <InfoBlock
             label={'Longitude'}
-            value={entry.latlng.longitude}
+            value={entry.location.longitude}
           />
           <InfoBlock
             label={'Date'}
-            value={entry.date}
+            value={entry.datetime.day}
           />
           <InfoBlock
             label={'Water Type'}

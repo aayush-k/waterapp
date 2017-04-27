@@ -11,7 +11,10 @@ import {
 } from 'expo';
 import { Button, Card, CardSection, Input, Header, Spinner } from './common';
 import { Router } from '../App';
+import firebase from 'firebase';
 
+
+//Replace with firebase data
 const dummyMarker = [
   {
     latlng: {
@@ -44,7 +47,51 @@ const dummyMarker = [
 
 
 export default class ReportsMapPage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            reports: [],
+            loading: true
+        };
+    }
+
+    getDataReports() {
+      //  console.log("ENTERED GET DATA REPORTS\n\n\n\n\n\n\n");
+        firebase.database().ref('source_report').on('value', (snapshot) => {
+            snapshot.forEach((child) => {
+              this.setState({reports: this.state.reports.concat(child)});
+            })
+            // this.setState({reports: snapshot.val()});
+            // console.log(this.state.reports);      
+            this.setState({loading: false});
+        });
+
+    }
+    
+
+    componentWillMount() {
+      // console.log("ENTERED GET DATA REPORTS\n\n\n\n\n\n\n");
+      this.getDataReports();
+      // console.log(this.state.reports);
+    //   console.log(dataReports);
+
+    //   this.setState( {
+    //     reports: dataReports 
+    //   });
+
+    //  this.setState({loading: false});
+      
+    }
+
+     
+
   render() {
+    if (this.state.loading || this.state.reports == []) {
+			return (
+				<Spinner size={'small'} />
+			);
+		}
     return (
       <MapView
         style={{flex: 1}}
@@ -55,18 +102,18 @@ export default class ReportsMapPage extends Component {
           longitudeDelta: 0.0421,
         }}
       >
-        {dummyMarker.map(marker => (
+        {this.state.reports.map(marker => (
           <MapView.Marker
             key={marker.key}  
-            coordinate={marker.latlng}
+            coordinate={marker.val().location}
             
           >
             <MapView.Callout style={styles.plainView}>
               <View style={styles.marker} >
                 <TouchableOpacity
-                  onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', {marker: marker}))}>
+                  onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', {marker: marker.val()}))}>
                   <View  style={styles.btnView}>
-                    <Text style={styles.markerText}>{marker.title}</Text>
+                    <Text style={styles.markerText}>{marker.val().title}</Text>
                   </View>
                 </TouchableOpacity>
                 </View>

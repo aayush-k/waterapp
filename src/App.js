@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ListView} from 'react-native';
 import firebase from 'firebase';
 import {Header} from './components/common';
 
@@ -32,6 +32,25 @@ export const Router = createRouter(() => ({
  */
 class App extends Component {
 
+	//state will be used in the future to determine if user is logged in	
+	constructor(props) {
+		super(props);
+		firebase.initializeApp({
+			apiKey: "AIzaSyCdwVFqfzXFOun3N9lxrut0XnWbNI3wkok",
+			authDomain: "cs2340-spring-2017-team-4.firebaseapp.com",
+			databaseURL: "https://cs2340-spring-2017-team-4.firebaseio.com",
+			projectId: "cs2340-spring-2017-team-4",
+			storageBucket: "cs2340-spring-2017-team-4.appspot.com",
+			messagingSenderId: "547594433734"
+		});
+		this.state = {
+				dataSource: new ListView.DataSource({
+				rowHasChanged: (row1, row2) => row1 !== row2,
+				}),
+				loggedIn: false
+		};
+	}
+
 	render() {
 		return (
 			<NavigationProvider router={Router}>
@@ -40,21 +59,11 @@ class App extends Component {
 		)
 	}
 
-	state = { loggedIn: false}; //state will be used in the future to determine if user is logged in
 	
 	/**
 	 * Before the component mounts, we initialize firebase.
 	 */
 	componentWillMount() {
-		firebase.initializeApp({
-			apiKey: "AIzaSyCdwVFqfzXFOun3N9lxrut0XnWbNI3wkok",
-			authDomain: "cs2340-spring-2017-team-4.firebaseapp.com",
-			databaseURL: "https://cs2340-spring-2017-team-4.firebaseio.com",
-			projectId: "cs2340-spring-2017-team-4",
-			storageBucket: "cs2340-spring-2017-team-4.appspot.com",
-			messagingSenderId: "547594433734"
-		})
-
 		//the following code lets the app directly take the user to the loginPage if he/she is already
 		// logged in.
 		firebase.auth().onAuthStateChanged((user) => {

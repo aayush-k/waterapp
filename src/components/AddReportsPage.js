@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import { Button, Card, CardSection, Input, Header, Spinner } from './common';
 import DateInput from './common/DateInput'
-import firebase from 'firebase';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Router } from '../App';
+import firebase from 'firebase';
 
 
 export default class AddReportsPage extends Component {
@@ -25,6 +25,16 @@ export default class AddReportsPage extends Component {
       datePickerVisible: false
 		};
 	}
+
+  // static setUserMobile(userId, mobile) {
+
+  //     let userMobilePath = "/user/" + userId + "/details";
+
+  //     return firebase.database().ref(userMobilePath).set({
+  //         mobile: mobile
+  //     })
+
+  // }
 
   
   render() {
