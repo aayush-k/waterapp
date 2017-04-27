@@ -66,6 +66,15 @@ export default class AddReportsPage extends Component {
               />
             </CardSection>
             
+            <CardSection>
+              <InputConstricted
+                placeholder='latitude'
+                label='Latitude'
+                value={this.state.latitude}
+                onChangeText={latitude => this.setState({ latitude })}
+                keyboardType='number-pad'
+              />
+            </CardSection>
 
             <CardSection>
               <InputConstricted
@@ -73,19 +82,10 @@ export default class AddReportsPage extends Component {
                 label='Longitude'
                 value={this.state.longitude}
                 onChangeText={longitude => this.setState({ longitude })}
-                keyboardType='decimal-pad'
+                keyboardType='number-pad'
               />
             </CardSection>
             
-            <CardSection>
-              <InputConstricted
-                placeholder='latitude'
-                label='Latitude'
-                value={this.state.latitude}
-                onChangeText={latitude => this.setState({ latitude })}
-                keyboardType='decimal-pad'
-              />
-            </CardSection>
           
             <CardSection>
               <View style={styles.containerStyle}>

@@ -74,14 +74,6 @@ export default class ReportInfoPage extends Component {
             label={'Water Condition'}
             value={entry.waterCondition}
           />
-          <InfoBlock
-            label={'Virus PPM'}
-            value={entry.virusPPM}
-          />
-          <InfoBlock
-            label={'Contaminant PPM'}
-            value={entry.contaminantPPM}
-          />
           
         </View>
         
