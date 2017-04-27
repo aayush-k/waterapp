@@ -7,7 +7,7 @@ import {
   Picker
 } from 'react-native';
 import {Button, Header, Input, Card, CardSection, InfoBlock} from './common';
-
+import firebase from 'firebase';
 
 export default class SettingsPage extends React.Component {
   // change auth level
@@ -31,6 +31,14 @@ export default class SettingsPage extends React.Component {
             password: loginPswd
         });   
     }
+
+	updateChanges() {
+		let userProfilePath = "profile/" + userId + "/details";
+
+        return firebase.database().ref(userProfilePath).set({
+            mobile: mobile
+        })
+	}
 
   render() {
     return (
