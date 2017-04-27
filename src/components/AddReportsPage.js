@@ -20,9 +20,9 @@ export default class AddReportsPage extends Component {
 		super();
 		this.state = {
 			title: '',
-			longitude: '',
-		 	latitude: '',
-      date: '',
+			longitude: 0,
+		 	latitude: 0,
+      date: undefined,
       waterCondition: 'WASTE', 
       waterType: 'BOTTLED',
       loading: false,
@@ -55,19 +55,11 @@ export default class AddReportsPage extends Component {
             waterType: this.state.waterType
         }).then(() => {
           console.log(firebase.database().ref(reportPath).push().key);
+          this.props.navigator.pop()
         }).catch(() => {
           console.log("error in pushing ref");
+          AlertIOS("Couldn't add report, check your internet.");
         });
-        
-        
-        
-        // .set({
-        //     role: this.state.authLevel
-				// }).then(() => {
-				// 	console.log("User auth level is now:");
-				// 	console.log(this.state.authLevel);
-				// 	this.props.navigator.pop();
-				// });
 	}
 
 
@@ -167,7 +159,7 @@ export default class AddReportsPage extends Component {
           </ScrollView>
 
           <CardSection>
-            <Button onPress={() => this.props.navigator.pop()}>
+            <Button onPress={() => this.updateChanges()}>
               Save
             </Button>
             <Button onPress={() => this.props.navigator.pop()}>
