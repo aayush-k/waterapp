@@ -1,0 +1,21 @@
+Animation: 5-10 points
+
+	Sexy transitions and loading spinner
+
+Networked Multiuser: 10-20,
+
+	App updates according to other additions
+
+Database for backend: 8-15,
+
+	Use of Firebase
+
+Alternative platforms: 40-100 x 2
+
+	Built iOS and WebApp versions.
+
+Admin features ban/unban: 5
+
+Lockout after 3 tries: 5
+
+Use of Location Services: previous app

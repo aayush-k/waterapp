@@ -12,7 +12,8 @@ export default class LoginScreen extends Component {
 			email: '',
 			password: '',
 			loading: false,
-			userUID: null
+			userUID: null,
+			loginAttempts: 0
 		}; //email, password, and loading states
 	}
 
@@ -29,8 +30,7 @@ export default class LoginScreen extends Component {
 			this.setState({userUID: user.uid});
 			this.onLoginSuccess().bind(this);
 			})
-			.catch(
-				this.onLoginFail.bind(this));
+			.catch(this.onLoginFail.bind(this))
 		}
 
 	/**
@@ -38,10 +38,16 @@ export default class LoginScreen extends Component {
 	 * Alerts the user that the login attempt has failed
 	 */
 	onLoginFail() {
+		attempts = this.state.loginAttempts + 1;
 		this.setState({
-			loading: false
+			loading: false,
+			loginAttempts: attempts
 		 });
-		AlertIOS.alert('Incorrect email or password.');
+		if (this.state.loginAttempts == 3) {
+			AlertIOS.alert('Too many incorrect attempts.');
+		} else {
+			AlertIOS.alert('Incorrect email or password.');	
+		}
 	}
 
 	/**
@@ -74,23 +80,15 @@ export default class LoginScreen extends Component {
 		this.onButtonPress();
 	}
 	
-	/**
-	 * Main render function
-	 */
-	render() {
-		if (this.state.loading) {
+	loginAttemptCheck() {
+		if (this.state.loginAttempts == 3) {
 			return (
-				<Spinner size={'small'} />
+				<Text>Too many login attempts</Text>
 			);
-		}
-		return (
-			<View>
-				<Header
-          headerText='Sign In'
-        />
-				
-				<Card>
-					<CardSection>
+		} else {
+			return (
+				<View>
+				<CardSection>
 						<Input
 							placeholder='user@email.com'
 							label='Email'
@@ -108,6 +106,28 @@ export default class LoginScreen extends Component {
 							onChangeText={password => this.setState({ password })}
 						/>
 					</CardSection>
+					</View>
+			);
+		}
+	}
+
+	/**
+	 * Main render function
+	 */
+	render() {
+		if (this.state.loading) {
+			return (
+				<Spinner size={'small'} />
+			);
+		}
+		return (
+			<View>
+				<Header
+          headerText='Sign In'
+        />
+				
+				<Card>
+					{this.loginAttemptCheck()}
 
 					<CardSection>
 						<Button onPress={this.onButtonPress.bind(this)}>
