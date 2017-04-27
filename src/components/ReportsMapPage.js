@@ -118,17 +118,16 @@ export default class ReportsMapPage extends Component {
           </MapView.Marker>
         ))}
   
-        <View style={styles.backView}>
-          <View style={styles.buttonWrapper}>
-            <Card>
-              <CardSection>
-                <Button onPress={() => this.props.navigator.pop()}>
-                  Back
-                </Button>
-              </CardSection>
-            </Card>
-          </View>
-        </View>
+        
+        <Card>
+          <CardSection>
+            <Button onPress={() => this.props.navigator.pop()}
+              style={styles.buttonWrapper}>
+              Back
+            </Button>
+          </CardSection>
+        </Card>
+         
       </MapView>
     );
   }
