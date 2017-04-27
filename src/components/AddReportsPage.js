@@ -20,9 +20,9 @@ export default class AddReportsPage extends Component {
 		super();
 		this.state = {
 			title: '',
-			longitude: '',
-		 	latitude: '',
-      date: '',
+			longitude: 0,
+		 	latitude: 0,
+      date: undefined,
       waterCondition: 'WASTE', 
       waterType: 'BOTTLED',
       loading: false,
@@ -30,17 +30,39 @@ export default class AddReportsPage extends Component {
 		};
 	}
 
-  // static setUserMobile(userId, mobile) {
+  updateChanges() {
+		let reportPath = "source_report/";
 
-  //     let userMobilePath = "/user/" + userId + "/details";
+        firebase.database().ref(reportPath).push().set({
+            datetime: {
+              date: this.state.date.getDate(),
+              day: this.state.date.getDay(),
+              hours: this.state.date.getHours(),
+              minutes: this.state.date.getMinutes(),
+              month: this.state.date.getMonth(),
+              seconds: this.state.date.getSeconds(),
+              time: this.state.date.getTime(),
+              timezoneOffset: this.state.date.getTimezoneOffset(),
+              year: this.state.date.getYear()
+            },
+            location: {
+              latitude: this.state.latitude,
+              longitude: this.state.longitude
+            },
+            reportNumber: 0,
+            title: this.state.title,
+            waterCondition: this.state.waterCondition,
+            waterType: this.state.waterType
+        }).then(() => {
+          console.log(firebase.database().ref(reportPath).push().key);
+          this.props.navigator.pop()
+        }).catch(() => {
+          console.log("error in pushing ref");
+          AlertIOS("Couldn't add report, check your internet.");
+        });
+	}
 
-  //     return firebase.database().ref(userMobilePath).set({
-  //         mobile: mobile
-  //     })
 
-  // }
-
-  
   render() {
     if (this.state.loading) {
 			return (
@@ -139,7 +161,7 @@ export default class AddReportsPage extends Component {
           </ScrollView>
 
           <CardSection>
-            <Button onPress={() => this.props.navigator.pop()}>
+            <Button onPress={() => this.updateChanges()}>
               Save
             </Button>
             <Button onPress={() => this.props.navigator.pop()}>
@@ -162,7 +184,7 @@ export default class AddReportsPage extends Component {
   };
   
   renderDate() {
-    if (this.state.date == '') {
+    if (this.state.date == undefined) {
       return (<Text style={styles.defaultValueStyle}>date</Text>);
     }
     return (<Text style={styles.valueStyle}>{this.state.date.toString()}</Text>);
