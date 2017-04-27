@@ -13,7 +13,8 @@ export default class LoginScreen extends Component {
 			password: '',
 			loading: false,
 			userUID: null,
-			loginAttempts: 0
+			loginAttempts: 0,
+			loginTitle: 'Sign In'
 		}; //email, password, and loading states
 	}
 
@@ -45,6 +46,9 @@ export default class LoginScreen extends Component {
 		 });
 		if (this.state.loginAttempts == 3) {
 			AlertIOS.alert('Too many incorrect attempts.');
+			this.setState({
+				loginTitle: 'Locked Out'
+			})
 		} else {
 			AlertIOS.alert('Incorrect email or password.');	
 		}
@@ -83,7 +87,7 @@ export default class LoginScreen extends Component {
 	loginAttemptCheck() {
 		if (this.state.loginAttempts == 3) {
 			return (
-				<Text>Too many login attempts</Text>
+				<Text style={styles.errorMessage}>Too many login attempts</Text>
 			);
 		} else {
 			return (
@@ -123,7 +127,7 @@ export default class LoginScreen extends Component {
 		return (
 			<View>
 				<Header
-          headerText='Sign In'
+          headerText={this.state.loginTitle}
         />
 				
 				<Card>
@@ -154,4 +158,13 @@ export default class LoginScreen extends Component {
 			</View>
 		);
 	}
+}
+
+const styles = {
+	errorMessage: {
+		fontSize: 18,
+		alignSelf: 'center',
+		color: '#FF0000',
+		padding: 10
+	},
 }

@@ -107,7 +107,7 @@ export default class ReportsMapPage extends Component {
 		}
     return (
       <MapView
-        style={{flex: 1}}
+        style={styles.map}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -182,5 +182,9 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     width: 75
+  },
+  map: {
+    flex: 1,
+    padding: 8
   }
 });
