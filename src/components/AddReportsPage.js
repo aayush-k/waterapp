@@ -184,7 +184,7 @@ export default class AddReportsPage extends Component {
   };
   
   renderDate() {
-    if (this.state.date == '') {
+    if (this.state.date == undefined) {
       return (<Text style={styles.defaultValueStyle}>date</Text>);
     }
     return (<Text style={styles.valueStyle}>{this.state.date.toString()}</Text>);
