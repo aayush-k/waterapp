@@ -18,26 +18,33 @@ export default class SettingsPage extends React.Component {
 			password: '',
 		 	confirm_password: '',
 			loading: false,
-			authLevel: 'user'
+			authLevel: 'user',
+			userUID: ''
 		};
 	}
 	
 	componentWillMount() {
-        loginEmail = this.props.route.params.email
-        loginPswd = this.props.route.params.password
-
+        loginEmail = this.props.route.params.email;
+        loginPswd = this.props.route.params.password;
+				userID = this.props.route.params.userUID;
+				
         this.setState({
             email: loginEmail,
-            password: loginPswd
+            password: loginPswd,
+						userUID: userID
         });   
     }
 
 	updateChanges() {
-		let userProfilePath = "profile/" + userId + "/details";
+		let userProfilePath = "profile/" + this.state.userUID + "/";
 
-        return firebase.database().ref(userProfilePath).set({
-            mobile: mobile
-        })
+        firebase.database().ref(userProfilePath).set({
+            role: this.state.authLevel
+				}).then(() => {
+					console.log("User auth level is now:");
+					console.log(this.state.authLevel);
+					this.props.navigator.pop();
+				});
 	}
 
   render() {
@@ -100,7 +107,7 @@ export default class SettingsPage extends React.Component {
             <Button onPress={() => this.props.navigator.pop()}>
               Back
             </Button>
-            <Button onPress={() => this.props.navigator.pop()}>
+						<Button onPress={() => {this.updateChanges()}}>
               Save
             </Button>
           </CardSection>

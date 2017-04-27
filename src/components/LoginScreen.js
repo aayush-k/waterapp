@@ -12,7 +12,7 @@ export default class LoginScreen extends Component {
 			email: '',
 			password: '',
 			loading: false,
-			userUID: ''
+			userUID: null
 		}; //email, password, and loading states
 	}
 
@@ -26,7 +26,8 @@ export default class LoginScreen extends Component {
 		this.setState({ loading: true });
 
 		firebase.auth().signInWithEmailAndPassword(email, password).then( (user) => {
-			this.onLoginSuccess(user).bind(this)
+			this.setState({userUID: user.uid});
+			this.onLoginSuccess().bind(this);
 			})
 			.catch(
 				this.onLoginFail.bind(this));
@@ -47,21 +48,20 @@ export default class LoginScreen extends Component {
 	 * This method is called if the user is successfully logged in.
 	 * It clears the login fields and takes the user to the reports page.
 	 */
-	onLoginSuccess(user) {
+	onLoginSuccess() {
+
 		loginEmail = this.state.email;
 		loginPswd = this.state.password;
-		userID = this.state.userUID;
 		this.setState({
 			email: '',
 			password: '',
-			loading: false,
-			userUID: user.uid
+			loading: false
 		 });
 		// Actions.reportsPage();
 		this.props.navigator.push(Router.getRoute('reportsPage', {
 			email: loginEmail,
 			password: loginPswd,
-			userUID: userID
+			userUID: this.state.userUID
 		}));
 	}
 
@@ -71,7 +71,7 @@ export default class LoginScreen extends Component {
 			email: 'debug@gatech.edu',
 			password: 'abc123',
 		});
-		this.onLoginSuccess();
+		this.onButtonPress();
 	}
 	
 	/**
