@@ -136,14 +136,14 @@ const styles = StyleSheet.create({
   // },
   marker: {
     // padding: 0,
-    // backgroundColor: '#2980b9'
+    // backgroundColor: '#1463b8'
   },
   markerView: {
     // flex: 1,
     // padding: 5,
   },
   markerText: {
-    color: '#2980b9',
+    color: '#1463b8',
     fontSize: 18,
     fontWeight: 'bold',
 

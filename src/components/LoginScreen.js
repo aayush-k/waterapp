@@ -120,7 +120,7 @@ export default class LoginScreen extends Component {
 					</CardSection>
 					<CardSection>
 						<Button onPress={() => this.bypassLogin()}>
-							Report Page
+							Bypass Login
 						</Button>
 						<Button onPress={() => this.props.navigator.push(Router.getRoute('reportsMapPage'))}>
 							Map Page

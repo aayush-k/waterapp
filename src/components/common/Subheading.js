@@ -27,13 +27,13 @@ const styles = {
     fontWeight: 'bold',
 		paddingLeft: 20,
     flex: 1,
-    color: '#2980b9'
+    color: '#1463b8'
   },
   titleStyle: {
     fontSize: 18,
 		paddingLeft: 20,
     flex: 1,
-    // color: '#2980b9'
+    // color: '#1463b8'
   }
 };
 

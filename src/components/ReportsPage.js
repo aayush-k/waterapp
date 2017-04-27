@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Card, CardSection, Header, Spinner} from './common';
+import {Button, Card, CardSection, Header, Spinner, InfoBlock} from './common';
 import firebase from 'firebase';
-import {Text, View, ScrollView} from 'react-native';
+import {
+    Text,
+    View,
+    ScrollView,
+    TouchableOpacity
+} from 'react-native';
 import axios from 'axios';
 import ReportsDetail from './common/ReportsDetail';
 import { Router } from '../App';
@@ -35,6 +40,8 @@ export default class ReportsPage extends Component {
             snapshot.forEach((child) => {
               this.setState({reports: this.state.reports.concat(child)});
             })
+            this.setState({loading: false});
+
         });
 
         loginEmail = this.props.route.params.email;
@@ -57,11 +64,9 @@ export default class ReportsPage extends Component {
 	}
 
 	render() {
-        if (this.state.loading || this.state.reports == []) {
+        if (this.state.loading) {
             return (
-                <Header
-                    headerText='LOADING'
-                />
+                <Spinner size={'large'} />
             );
         }
 		return(
@@ -81,9 +86,19 @@ export default class ReportsPage extends Component {
                             Add Report
                         </Button>
                     </CardSection>
-                    <ScrollView>
-                    {this.state.reports.map(marker => (
-                        <Text> {marker.val().title}</Text>        
+                    <ScrollView style={styles.reportsList}>
+                        {this.state.reports.map(marker => (
+                            <TouchableOpacity
+                                key={marker.key}
+                                onPress={() => this.props.navigator.push(Router.getRoute('reportInfoPage', { marker: marker.val() }))}
+                            >
+                                <CardSection>
+                                    <View style={styles.listItem}>
+                                        <Text style={styles.listMainText}>{marker.val().title}</Text>
+                                        <Text style={styles.listSubText}> See More </Text>
+                                    </View>
+                                </CardSection>
+                            </TouchableOpacity>    
                     ))}      
                     </ScrollView>
                     <CardSection>
@@ -105,16 +120,26 @@ export default class ReportsPage extends Component {
 }
 
 const styles = {
-  headerContentStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#2980b9'
+  reportsList: {
+      height: 430,
+    },
+  listMainText: {
+    color: '#1463b8',
+    fontSize: 18,
+    fontWeight: 'bold',
+    padding: 5,
+    lineHeight: 23,
   },
-  headerTextStyle: {
-    color: '#ffffff',
-    fontSize: 34
+  listSubText: {
+      color: '#a7a7a7',
+      fontSize: 18,
+      padding: 5,
+      lineHeight: 23
+  },
+  listItem: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
   }
 }
 

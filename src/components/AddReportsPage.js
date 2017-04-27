@@ -165,6 +165,6 @@ const styles = {
   dateEntryStyle: {
     flex: 1,
     justifyContent: 'center'
-    // backgroundColor: '#2980b9'
+    // backgroundColor: '#1463b8'
   }
 }
